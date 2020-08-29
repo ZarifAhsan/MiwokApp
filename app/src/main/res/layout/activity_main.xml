@@ -8,28 +8,57 @@
     android:orientation="vertical"
     tools:context=".MainActivity">
 
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:background="@android:color/black"/>
+
     <TextView
         android:id="@+id/numbers"
         style="@style/CategoryStyle"
-        android:background="@color/category_numbers"
-        android:text="@string/category_numbers" />
+        android:background="#EF8200"
+        android:text="@string/category_numbers"
+        android:onClick="openNumbersList"/>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:background="@android:color/black"/>
 
     <TextView
         android:id="@+id/family"
         style="@style/CategoryStyle"
         android:background="@color/category_family"
-        android:text="@string/category_family" />
+        android:text="@string/category_family"
+        android:onClick="openFamilyList"/>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:background="@android:color/black"/>
 
     <TextView
         android:id="@+id/colors"
         style="@style/CategoryStyle"
         android:background="@color/category_colors"
-        android:text="@string/category_colors" />
+        android:text="@string/category_colors"
+        android:onClick="openColorsList"/>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:background="@android:color/black"/>
 
     <TextView
         android:id="@+id/phrases"
         style="@style/CategoryStyle"
         android:background="@color/category_phrases"
-        android:text="@string/category_phrases" />
+        android:text="@string/category_phrases"
+        android:onClick="openPhrasesList"/>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:background="@android:color/black"/>
 
 </LinearLayout>
