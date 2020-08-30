@@ -5,6 +5,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.TextView;
+
+import org.w3c.dom.Text;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -14,26 +17,49 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
 
-    }
+        // Finding the views and declaring then onto an appropriately named variable
+        TextView numbers = findViewById(R.id.numbers);
+        TextView family = findViewById(R.id.family);
+        TextView colors = findViewById(R.id.colors);
+        TextView phrases = findViewById(R.id.phrases);
 
-    public void openNumbersList(View view) {
-        Intent intent = new Intent(this, NumbersActivity.class);
-        startActivity(intent);
-    }
 
-    public void openFamilyList(View view) {
-        Intent intent = new Intent(this, FamilyActivity.class);
-        startActivity(intent);
-    }
+        // Setting click listeners to Views
 
-    public void openPhrasesList(View view) {
-        Intent intent = new Intent(this, PhrasesActivity.class);
-        startActivity(intent);
-    }
+        numbers.setOnClickListener(new View.OnClickListener() {
+            // The code in this method will be executed when the numbers View is clicked on.
+            @Override
+            public void onClick(View view) {
+                Intent numbersIntent = new Intent(MainActivity.this, NumbersActivity.class);
+                startActivity(numbersIntent);
+            }
+        });
 
-    public void openColorsList(View view) {
-        Intent intent = new Intent(this, ColorsActivity.class);
-        startActivity(intent);
-    }
+        family.setOnClickListener(new View.OnClickListener() {
+            // The code in this method will be executed when the family View is clicked on.
+            @Override
+            public void onClick(View view) {
+                Intent familyIntent = new Intent(MainActivity.this, FamilyActivity.class);
+                startActivity(familyIntent);
+            }
+        });
 
+        colors.setOnClickListener(new View.OnClickListener() {
+            // The code in this method will be executed when the colors View is clicked on.
+            @Override
+            public void onClick(View view) {
+                Intent colorsIntent = new Intent(MainActivity.this, ColorsActivity.class);
+                startActivity(colorsIntent);
+            }
+        });
+
+        phrases.setOnClickListener(new View.OnClickListener() {
+            // The code in this method will be executed when the phrases View is clicked on.
+            @Override
+            public void onClick(View view) {
+                Intent phrasesIntent = new Intent(MainActivity.this, PhrasesActivity.class);
+                startActivity(phrasesIntent);
+            }
+        });
+    }
 }
