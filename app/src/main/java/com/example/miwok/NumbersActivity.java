@@ -4,12 +4,9 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 import android.widget.ArrayAdapter;
-import android.widget.LinearLayout;
 import android.widget.ListView;
-import android.widget.TextView;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class NumbersActivity extends AppCompatActivity {
 
@@ -19,7 +16,7 @@ public class NumbersActivity extends AppCompatActivity {
         setContentView(R.layout.activity_numbers);
 
 
-        ArrayList<String> numberWords = new ArrayList<String>();
+        ArrayList<String> numberWords = new ArrayList<>();
 
         createNumberList(numberWords);
         createListView(numberWords);
@@ -39,7 +36,7 @@ public class NumbersActivity extends AppCompatActivity {
     }
 
     private void createListView(ArrayList<String> arrayList) {
-        ArrayAdapter<String> itemsAdapter = new ArrayAdapter<String >(this, android.R.layout.simple_list_item_1, arrayList);
+        ArrayAdapter<String> itemsAdapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, arrayList);
 
         ListView listView = findViewById(R.id.list);
         listView.setAdapter(itemsAdapter);
