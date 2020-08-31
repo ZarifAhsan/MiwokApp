@@ -6,7 +6,9 @@ public class Word {
 
     private String mMiwokTranslation;
 
-    private int mImageResourceId;
+    private int mImageResourceId = HAS_NO_IMAGE;
+
+    private static int HAS_NO_IMAGE = -1;
 
 
     public Word(String defaultTranslation, String miwokTranslation, int imageResourceId) {
@@ -15,6 +17,10 @@ public class Word {
         mImageResourceId = imageResourceId;
     }
 
+    public Word(String defaultTranslation, String miwokTranslation) {
+        mDefaultTranslation = defaultTranslation;
+        mMiwokTranslation = miwokTranslation;
+    }
 
     public String getDefaultTranslation() {
         return mDefaultTranslation;
@@ -26,5 +32,9 @@ public class Word {
 
     public int getImageResourceId() {
         return mImageResourceId;
+    }
+
+    public boolean hasImage() {
+        return mImageResourceId != HAS_NO_IMAGE;
     }
 }
