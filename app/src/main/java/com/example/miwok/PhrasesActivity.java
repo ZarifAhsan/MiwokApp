@@ -34,7 +34,7 @@ public class PhrasesActivity extends AppCompatActivity {
     }
 
     private void createListView(ArrayList<Word> arrayList) {
-        WordAdapter wordAdapter = new WordAdapter(this, arrayList);
+        WordAdapter wordAdapter = new WordAdapter(this, arrayList, R.color.category_phrases);
 
         ListView listView = findViewById(R.id.list);
         listView.setAdapter(wordAdapter);

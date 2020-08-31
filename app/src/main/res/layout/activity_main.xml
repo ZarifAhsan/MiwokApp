@@ -11,18 +11,18 @@
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:background="@android:color/black"/>
+        android:background="#FF4C4C4C"/>
 
     <TextView
         android:id="@+id/numbers"
         style="@style/CategoryStyle"
-        android:background="#EF8200"
+        android:background="@color/category_numbers"
         android:text="@string/category_numbers"/>
 
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:background="@android:color/black"/>
+        android:background="#FF4C4C4C"/>
 
     <TextView
         android:id="@+id/family"
@@ -33,7 +33,7 @@
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:background="@android:color/black"/>
+        android:background="#FF4C4C4C"/>
 
     <TextView
         android:id="@+id/colors"
@@ -44,7 +44,7 @@
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:background="@android:color/black"/>
+        android:background="#FF4C4C4C"/>
 
     <TextView
         android:id="@+id/phrases"
@@ -55,6 +55,6 @@
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:background="@android:color/black"/>
+        android:background="#FF4C4C4C"/>
 
 </LinearLayout>
