@@ -32,6 +32,7 @@ public class WordAdapter extends ArrayAdapter<Word> {
         }
 
 
+
         Word currentWord = getItem(position);
 
         TextView defaultWordView = listItemView.findViewById(R.id.default_word_text_view);
