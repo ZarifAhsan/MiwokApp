@@ -1,6 +1,5 @@
 package com.example.miwok;
 
-import android.media.MediaPlayer;
 
 public class Word {
 
@@ -46,4 +45,5 @@ public class Word {
     public int getMediaPlayer() {
         return mAudioResourceId;
     }
+
 }
