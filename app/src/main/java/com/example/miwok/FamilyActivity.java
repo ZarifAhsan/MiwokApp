@@ -2,6 +2,8 @@ package com.example.miwok;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
+import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.view.View;
@@ -14,10 +16,27 @@ public class FamilyActivity extends AppCompatActivity {
 
     private MediaPlayer mMediaPlayer;
 
+    private AudioManager mAudioManager;
+
     private MediaPlayer.OnCompletionListener mCompletionListener = new MediaPlayer.OnCompletionListener() {
         @Override
         public void onCompletion(MediaPlayer mediaPlayer) {
             releaseMediaPlayer();
+        }
+    };
+
+
+    private AudioManager.OnAudioFocusChangeListener mOnAudioFocusChangeListener = new AudioManager.OnAudioFocusChangeListener() {
+        @Override
+        public void onAudioFocusChange(int focusChange) {
+            if (focusChange == AudioManager.AUDIOFOCUS_LOSS_TRANSIENT || focusChange == AudioManager.AUDIOFOCUS_LOSS_TRANSIENT_CAN_DUCK) {
+                mMediaPlayer.pause();
+                mMediaPlayer.seekTo(0);
+            } else if (focusChange == AudioManager.AUDIOFOCUS_GAIN) {
+                mMediaPlayer.start();
+            } else if (focusChange == AudioManager.AUDIOFOCUS_LOSS) {
+                releaseMediaPlayer();
+            }
         }
     };
 
@@ -28,6 +47,9 @@ public class FamilyActivity extends AppCompatActivity {
         setContentView(R.layout.word_list);
 
         final ArrayList<Word> familyWords = new ArrayList<>();
+
+        mAudioManager = (AudioManager) getSystemService(Context.AUDIO_SERVICE);
+
         createFamilyList(familyWords);
         createListView(familyWords);
     }
@@ -58,11 +80,22 @@ public class FamilyActivity extends AppCompatActivity {
 
                 releaseMediaPlayer();
 
-                mMediaPlayer = MediaPlayer.create(FamilyActivity.this, word.getMediaPlayer());
-                mMediaPlayer.start();
+                // Request audio focus so in order to play the audio file. The app needs to play a
+                // short audio file, so we will request audio focus with a short amount of time
+                // with AUDIOFOCUS_GAIN_TRANSIENT.
+                int result = mAudioManager.requestAudioFocus(mOnAudioFocusChangeListener,
+                        AudioManager.STREAM_MUSIC, AudioManager.AUDIOFOCUS_GAIN_TRANSIENT);
 
-                mMediaPlayer.setOnCompletionListener(mCompletionListener);
 
+                if (result == AudioManager.AUDIOFOCUS_REQUEST_GRANTED) {
+
+                    mMediaPlayer = MediaPlayer.create(FamilyActivity.this, word.getMediaPlayer());
+
+                    mMediaPlayer.start();
+
+                    mMediaPlayer.setOnCompletionListener(mCompletionListener);
+
+                }
             }
         });
     }
@@ -87,6 +120,10 @@ public class FamilyActivity extends AppCompatActivity {
             // setting the media player to null is an easy way to tell that the media player
             // is not configured to play an audio file at the moment.
             mMediaPlayer = null;
+
+            // Regardless of whether or not we were granted audio focus, abandon it. This also
+            // unregisters the AudioFocusChangeListener so we don't get anymore callbacks.
+            mAudioManager.abandonAudioFocus(mOnAudioFocusChangeListener);
         }
     }
 
