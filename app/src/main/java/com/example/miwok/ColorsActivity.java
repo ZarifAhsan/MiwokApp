@@ -66,6 +66,12 @@ public class ColorsActivity extends AppCompatActivity {
         });
     }
 
+    @Override
+    protected void onPause() {
+        super.onPause();
+        releaseMediaPlayer();
+    }
+
     /**
      * Clean up the media player by releasing its resources.
      */
@@ -82,4 +88,5 @@ public class ColorsActivity extends AppCompatActivity {
             mMediaPlayer = null;
         }
     }
+
 }
