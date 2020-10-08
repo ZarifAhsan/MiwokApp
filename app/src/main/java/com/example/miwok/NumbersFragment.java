@@ -1,19 +1,24 @@
 package com.example.miwok;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Context;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.os.Bundle;
+
+import androidx.fragment.app.Fragment;
+
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import java.util.ArrayList;
+import java.util.Objects;
 
-public class NumbersActivity extends AppCompatActivity {
 
+public class NumbersFragment extends Fragment {
     private MediaPlayer mMediaPlayer;
 
     private AudioManager mAudioManager;
@@ -40,39 +45,42 @@ public class NumbersActivity extends AppCompatActivity {
         }
     };
 
+    public NumbersFragment() {
+        // Required empty public constructor
+    }
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_category);
-        getSupportFragmentManager().beginTransaction()
-                .replace(R.id.container, new NumbersFragment())
-                .commit();
-    }
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
 
-    private void createNumberList(ArrayList<Word> arrayList) {
-        arrayList.add(new Word("one", "lutti", R.drawable.number_one, R.raw.number_one));
-        arrayList.add(new Word("two", "otiiko", R.drawable.number_two, R.raw.number_two));
-        arrayList.add(new Word("three", "tolookosu", R.drawable.number_three, R.raw.number_three));
-        arrayList.add(new Word("four", "oyyisa", R.drawable.number_four, R.raw.number_four));
-        arrayList.add(new Word("five", "massokka", R.drawable.number_five, R.raw.number_five));
-        arrayList.add(new Word("six", "temmokka", R.drawable.number_six, R.raw.number_six));
-        arrayList.add(new Word("seven", "kenekaku", R.drawable.number_seven, R.raw.number_seven));
-        arrayList.add(new Word("eight", "kawinta", R.drawable.number_eight, R.raw.number_eight));
-        arrayList.add(new Word("nine", "wo'e", R.drawable.number_nine, R.raw.number_nine));
-        arrayList.add(new Word("ten", "na'aacha", R.drawable.number_ten, R.raw.number_ten));
-    }
+        View rootView = inflater.inflate(R.layout.word_list, container, false);
 
-    private void createListView(final ArrayList<Word> arrayList) {
-        WordAdapter wordAdapter = new WordAdapter(this, arrayList, R.color.category_numbers);
+        final ArrayList<Word> numberWords = new ArrayList<>();
 
-        ListView listView = findViewById(R.id.list);
+        mAudioManager = (AudioManager) Objects.requireNonNull(getActivity()).getSystemService(Context.AUDIO_SERVICE);
+
+
+        numberWords.add(new Word("one", "lutti", R.drawable.number_one, R.raw.number_one));
+        numberWords.add(new Word("two", "otiiko", R.drawable.number_two, R.raw.number_two));
+        numberWords.add(new Word("three", "tolookosu", R.drawable.number_three, R.raw.number_three));
+        numberWords.add(new Word("four", "oyyisa", R.drawable.number_four, R.raw.number_four));
+        numberWords.add(new Word("five", "massokka", R.drawable.number_five, R.raw.number_five));
+        numberWords.add(new Word("six", "temmokka", R.drawable.number_six, R.raw.number_six));
+        numberWords.add(new Word("seven", "kenekaku", R.drawable.number_seven, R.raw.number_seven));
+        numberWords.add(new Word("eight", "kawinta", R.drawable.number_eight, R.raw.number_eight));
+        numberWords.add(new Word("nine", "wo'e", R.drawable.number_nine, R.raw.number_nine));
+        numberWords.add(new Word("ten", "na'aacha", R.drawable.number_ten, R.raw.number_ten));
+
+
+        WordAdapter wordAdapter = new WordAdapter(getActivity(), numberWords, R.color.category_numbers);
+
+        ListView listView = rootView.findViewById(R.id.list);
         listView.setAdapter(wordAdapter);
 
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
-                Word word = arrayList.get(position);
+                Word word = numberWords.get(position);
 
                 releaseMediaPlayer();
 
@@ -85,7 +93,7 @@ public class NumbersActivity extends AppCompatActivity {
 
                 if (result == AudioManager.AUDIOFOCUS_REQUEST_GRANTED) {
 
-                    mMediaPlayer = MediaPlayer.create(NumbersActivity.this, word.getMediaPlayer());
+                    mMediaPlayer = MediaPlayer.create(getActivity(), word.getMediaPlayer());
 
                     mMediaPlayer.start();
 
@@ -94,17 +102,10 @@ public class NumbersActivity extends AppCompatActivity {
                 }
             }
         });
+
+        return rootView;
     }
 
-    @Override
-    protected void onPause() {
-        super.onPause();
-        releaseMediaPlayer();
-    }
-
-    /**
-     * Clean up the media player by releasing its resources.
-     */
     private void releaseMediaPlayer() {
         // If the media player is not null, then it may be currently playing a sound.
         if (mMediaPlayer != null) {
@@ -123,4 +124,10 @@ public class NumbersActivity extends AppCompatActivity {
         }
     }
 
+    @Override
+    public void onStop() {
+        super.onStop();
+
+        releaseMediaPlayer();
+    }
 }
