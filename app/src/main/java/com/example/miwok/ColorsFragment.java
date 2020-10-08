@@ -118,4 +118,11 @@ public class ColorsFragment extends Fragment {
             mAudioManager.abandonAudioFocus(mOnAudioFocusChangeListener);
         }
     }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+
+        releaseMediaPlayer();
+    }
 }

@@ -44,14 +44,10 @@ public class PhrasesActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.word_list);
-
-        final ArrayList<Word> phrasesWords = new ArrayList<>();
-
-        mAudioManager = (AudioManager) getSystemService(Context.AUDIO_SERVICE);
-
-        createPhrasesList(phrasesWords);
-        createListView(phrasesWords);
+        setContentView(R.layout.activity_category);
+        getSupportFragmentManager().beginTransaction()
+                .replace(R.id.container, new PhrasesFragment())
+                .commit();
     }
 
     private void createPhrasesList(ArrayList<Word> arrayList) {
