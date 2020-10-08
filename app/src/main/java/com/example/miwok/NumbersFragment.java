@@ -127,7 +127,12 @@ public class NumbersFragment extends Fragment {
     @Override
     public void onStop() {
         super.onStop();
+        releaseMediaPlayer();
+    }
 
+    @Override
+    public void onPause() {
+        super.onPause();
         releaseMediaPlayer();
     }
 }
