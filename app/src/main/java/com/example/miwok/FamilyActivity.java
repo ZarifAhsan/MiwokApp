@@ -44,14 +44,10 @@ public class FamilyActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.word_list);
-
-        final ArrayList<Word> familyWords = new ArrayList<>();
-
-        mAudioManager = (AudioManager) getSystemService(Context.AUDIO_SERVICE);
-
-        createFamilyList(familyWords);
-        createListView(familyWords);
+        setContentView(R.layout.activity_category);
+        getSupportFragmentManager().beginTransaction()
+                .replace(R.id.container, new FamilyFragment())
+                .commit();
     }
 
     private void createFamilyList(ArrayList<Word> arrayList) {

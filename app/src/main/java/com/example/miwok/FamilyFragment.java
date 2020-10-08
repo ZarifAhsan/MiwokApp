@@ -1,18 +1,22 @@
 package com.example.miwok;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Context;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.os.Bundle;
+
+import androidx.fragment.app.Fragment;
+
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
 
 import java.util.ArrayList;
+import java.util.Objects;
 
-public class ColorsActivity extends AppCompatActivity {
+public class FamilyFragment extends Fragment {
 
     private MediaPlayer mMediaPlayer;
 
@@ -40,37 +44,39 @@ public class ColorsActivity extends AppCompatActivity {
         }
     };
 
-
+    public FamilyFragment() {
+        // Required empty public constructor
+    }
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_category);
-        getSupportFragmentManager().beginTransaction()
-                .replace(R.id.container, new ColorsFragment())
-                .commit();
-    }
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        View rootView = inflater.inflate(R.layout.word_list, container, false);
 
-    private void createColorList(ArrayList<Word> arrayList) {
-        arrayList.add(new Word("red", "weṭeṭṭi", R.drawable.color_red, R.raw.color_red));
-        arrayList.add(new Word("green", "chokokki", R.drawable.color_green, R.raw.color_green));
-        arrayList.add(new Word("brown", "ṭakaakki", R.drawable.color_brown, R.raw.color_brown));
-        arrayList.add(new Word("gray", "ṭopoppi", R.drawable.color_gray, R.raw.color_gray));
-        arrayList.add(new Word("black", "kululli", R.drawable.color_black, R.raw.color_black));
-        arrayList.add(new Word("white", "kelelli", R.drawable.color_white, R.raw.color_white));
-        arrayList.add(new Word("dusty yellow", "ṭopiisә", R.drawable.color_dusty_yellow, R.raw.color_dusty_yellow));
-        arrayList.add(new Word("mustard yellow", "chiwiiṭә", R.drawable.color_mustard_yellow, R.raw.color_mustard_yellow));
-    }
 
-    private void createListView(final ArrayList<Word> arrayList) {
-        WordAdapter wordAdapter = new WordAdapter(this, arrayList, R.color.category_colors);
+        final ArrayList<Word> familyWords = new ArrayList<>();
 
-        ListView listView = findViewById(R.id.list);
+        mAudioManager = (AudioManager) Objects.requireNonNull(getActivity()).getSystemService(Context.AUDIO_SERVICE);
+
+        familyWords.add(new Word("father", "әpә", R.drawable.family_father, R.raw.family_father));
+        familyWords.add(new Word("mother", "әṭa", R.drawable.family_mother, R.raw.family_mother));
+        familyWords.add(new Word("son", "angsi", R.drawable.family_son, R.raw.family_son));
+        familyWords.add(new Word("daughter", "tune", R.drawable.family_daughter, R.raw.family_daughter));
+        familyWords.add(new Word("older brother", "taachi", R.drawable.family_older_brother, R.raw.family_older_brother));
+        familyWords.add(new Word("younger brother", "chalitti", R.drawable.family_younger_brother, R.raw.family_younger_brother));
+        familyWords.add(new Word("older sister", "teṭe", R.drawable.family_older_sister, R.raw.family_older_sister));
+        familyWords.add(new Word("younger sister", "kolliti", R.drawable.family_younger_sister, R.raw.family_younger_sister));
+        familyWords.add(new Word("grandmother", "ama", R.drawable.family_grandmother, R.raw.family_grandmother));
+        familyWords.add(new Word("grandfather", "paapa", R.drawable.family_grandfather, R.raw.family_grandfather));
+
+        WordAdapter wordAdapter = new WordAdapter(getActivity(), familyWords, R.color.category_family);
+
+        ListView listView = rootView.findViewById(R.id.list);
         listView.setAdapter(wordAdapter);
 
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
-                Word word = arrayList.get(position);
+                Word word = familyWords.get(position);
 
                 releaseMediaPlayer();
 
@@ -78,13 +84,12 @@ public class ColorsActivity extends AppCompatActivity {
                 // short audio file, so we will request audio focus with a short amount of time
                 // with AUDIOFOCUS_GAIN_TRANSIENT.
                 int result = mAudioManager.requestAudioFocus(mOnAudioFocusChangeListener,
-                        AudioManager.STREAM_MUSIC,
-                        AudioManager.AUDIOFOCUS_GAIN_TRANSIENT);
+                        AudioManager.STREAM_MUSIC, AudioManager.AUDIOFOCUS_GAIN_TRANSIENT);
 
 
                 if (result == AudioManager.AUDIOFOCUS_REQUEST_GRANTED) {
 
-                    mMediaPlayer = MediaPlayer.create(ColorsActivity.this, word.getMediaPlayer());
+                    mMediaPlayer = MediaPlayer.create(getActivity(), word.getMediaPlayer());
 
                     mMediaPlayer.start();
 
@@ -93,17 +98,10 @@ public class ColorsActivity extends AppCompatActivity {
                 }
             }
         });
+
+        return rootView;
     }
 
-    @Override
-    protected void onPause() {
-        super.onPause();
-        releaseMediaPlayer();
-    }
-
-    /**
-     * Clean up the media player by releasing its resources.
-     */
     private void releaseMediaPlayer() {
         // If the media player is not null, then it may be currently playing a sound.
         if (mMediaPlayer != null) {
@@ -121,5 +119,4 @@ public class ColorsActivity extends AppCompatActivity {
             mAudioManager.abandonAudioFocus(mOnAudioFocusChangeListener);
         }
     }
-
 }
