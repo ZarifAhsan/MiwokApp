@@ -1,16 +1,10 @@
-package com.example.miwok;
+package com.example.miwok.ui.numbers;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.content.Context;
-import android.media.AudioManager;
-import android.media.MediaPlayer;
 import android.os.Bundle;
-import android.view.View;
-import android.widget.AdapterView;
-import android.widget.ListView;
 
-import java.util.ArrayList;
+import com.example.miwok.R;
 
 public class NumbersActivity extends AppCompatActivity {
     @Override

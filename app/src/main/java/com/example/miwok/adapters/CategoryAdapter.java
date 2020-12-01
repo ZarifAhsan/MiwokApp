@@ -1,4 +1,4 @@
-package com.example.miwok;
+package com.example.miwok.adapters;
 
 import android.content.Context;
 
@@ -8,9 +8,15 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
 
+import com.example.miwok.R;
+import com.example.miwok.ui.colors.ColorsFragment;
+import com.example.miwok.ui.family.FamilyFragment;
+import com.example.miwok.ui.numbers.NumbersFragment;
+import com.example.miwok.ui.phrases.PhrasesFragment;
+
 public class CategoryAdapter extends FragmentPagerAdapter {
 
-    private Context mContext;
+    private final Context mContext;
 
     public CategoryAdapter(Context context, @NonNull FragmentManager fm) {
         super(fm);

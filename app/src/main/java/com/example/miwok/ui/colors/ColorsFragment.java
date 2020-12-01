@@ -1,4 +1,4 @@
-package com.example.miwok;
+package com.example.miwok.ui.colors;
 
 import android.content.Context;
 import android.media.AudioManager;
@@ -13,6 +13,10 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
 
+import com.example.miwok.R;
+import com.example.miwok.utils.Word;
+import com.example.miwok.adapters.WordAdapter;
+
 import java.util.ArrayList;
 import java.util.Objects;
 
@@ -22,7 +26,7 @@ public class ColorsFragment extends Fragment {
 
     private AudioManager mAudioManager;
 
-    private MediaPlayer.OnCompletionListener mCompletionListener = new MediaPlayer.OnCompletionListener() {
+    private final MediaPlayer.OnCompletionListener mCompletionListener = new MediaPlayer.OnCompletionListener() {
         @Override
         public void onCompletion(MediaPlayer mediaPlayer) {
             releaseMediaPlayer();
@@ -30,7 +34,7 @@ public class ColorsFragment extends Fragment {
     };
 
 
-    private AudioManager.OnAudioFocusChangeListener mOnAudioFocusChangeListener = new AudioManager.OnAudioFocusChangeListener() {
+    private final AudioManager.OnAudioFocusChangeListener mOnAudioFocusChangeListener = new AudioManager.OnAudioFocusChangeListener() {
         @Override
         public void onAudioFocusChange(int focusChange) {
             if (focusChange == AudioManager.AUDIOFOCUS_LOSS_TRANSIENT || focusChange == AudioManager.AUDIOFOCUS_LOSS_TRANSIENT_CAN_DUCK) {

@@ -1,17 +1,17 @@
-package com.example.miwok;
+package com.example.miwok.utils;
 
 
 public class Word {
 
-    private String mDefaultTranslation;
+    private final String mDefaultTranslation;
 
-    private String mMiwokTranslation;
+    private final String mMiwokTranslation;
 
     private int mImageResourceId = HAS_NO_IMAGE;
 
-    private static int HAS_NO_IMAGE = -1;
+    private static final int HAS_NO_IMAGE = -1;
 
-    private int mAudioResourceId;
+    private final int mAudioResourceId;
 
 
     public Word(String defaultTranslation, String miwokTranslation, int imageResourceId, int audioResourceId) {

@@ -1,16 +1,10 @@
-package com.example.miwok;
+package com.example.miwok.ui.phrases;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.content.Context;
-import android.media.AudioManager;
 import android.os.Bundle;
-import android.view.View;
-import android.widget.AdapterView;
-import android.widget.ListView;
-import android.media.MediaPlayer;
 
-import java.util.ArrayList;
+import com.example.miwok.R;
 
 public class PhrasesActivity extends AppCompatActivity {
     @Override

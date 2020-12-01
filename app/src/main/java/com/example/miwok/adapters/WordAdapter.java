@@ -1,4 +1,4 @@
-package com.example.miwok;
+package com.example.miwok.adapters;
 
 import android.app.Activity;
 import android.view.LayoutInflater;
@@ -12,11 +12,14 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.content.ContextCompat;
 
+import com.example.miwok.R;
+import com.example.miwok.utils.Word;
+
 import java.util.ArrayList;
 
 public class WordAdapter extends ArrayAdapter<Word> {
 
-    private int mColorResourceId;
+    private final int mColorResourceId;
 
     public WordAdapter(Activity context, ArrayList<Word> Word, int colorResourceId) {
         super(context, 0, Word);
